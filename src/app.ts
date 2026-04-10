@@ -34,6 +34,14 @@ app.get("/hoang-logo.png", async (c) => {
   return c.notFound();
 });
 
+app.get("/hoang-og.png", async (c) => {
+  const file = Bun.file(path.join(projectRoot, "uploads/hoang-og.png"));
+  if (await file.exists()) {
+    return new Response(file.stream(), { headers: { "Content-Type": "image/png" } });
+  }
+  return c.notFound();
+});
+
 app.get("/logo-*.png", async (c) => {
   const filename = c.req.path.split("/").pop();
   const file = Bun.file(path.join(projectRoot, "uploads", filename || ""));
